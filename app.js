@@ -1,56 +1,41 @@
-// Seleciona os elementos do DOM
-const shoppingForm = document.getElementById('shopping-form');
-const itemInput = document.getElementById('item-input');
-const priceInput = document.getElementById('price-input');
+const form = document.getElementById('product-form');
+const productInput = document.getElementById('product');
+const quantityInput = document.getElementById('quantity');
+const priceInput = document.getElementById('price');
 const shoppingList = document.getElementById('shopping-list');
-const totalPriceDisplay = document.getElementById('total-price');
+const totalPriceElement = document.getElementById('total-price');
 
 let totalPrice = 0;
 
-// Função para formatar valores monetários
-function formatCurrency(value) {
-  return value.toFixed(2).replace('.', ',');
-}
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
 
-// Função para atualizar o total
-function updateTotal(price) {
-  totalPrice += parseFloat(price);
-  totalPriceDisplay.textContent = formatCurrency(totalPrice);
-}
-
-// Função para remover um item e atualizar o total
-function removeItem(li, price) {
-  shoppingList.removeChild(li);
-  totalPrice -= parseFloat(price);
-  totalPriceDisplay.textContent = formatCurrency(totalPrice);
-}
-
-// Função para adicionar item
-shoppingForm.addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  const newItem = itemInput.value;
+  const product = productInput.value;
+  const quantity = parseInt(quantityInput.value);
   const price = parseFloat(priceInput.value);
+  const totalItemPrice = quantity * price;
 
-  // Cria um novo item na lista
-  const li = document.createElement('li');
-  li.innerHTML = `
-    ${newItem} - R$ ${formatCurrency(price)}
-    <button class="delete-btn">Excluir</button>
+  // Adicionar o produto à lista
+  const listItem = document.createElement('li');
+  listItem.innerHTML = `
+    ${quantity}x ${product} - R$ ${totalItemPrice.toFixed(2)}
+    <button class="delete-btn">Remover</button>
   `;
+  shoppingList.appendChild(listItem);
 
-  // Adiciona o item à lista
-  shoppingList.appendChild(li);
+  // Atualizar o preço total
+  totalPrice += totalItemPrice;
+  totalPriceElement.textContent = totalPrice.toFixed(2);
 
-  // Atualiza o total
-  updateTotal(price);
-
-  // Limpa os campos de entrada
-  itemInput.value = '';
+  // Limpar os campos do formulário
+  productInput.value = '';
+  quantityInput.value = '';
   priceInput.value = '';
 
-  // Adiciona funcionalidade de excluir
-  li.querySelector('.delete-btn').addEventListener('click', function() {
-    removeItem(li, price);
+  // Função de remover item da lista
+  listItem.querySelector('.delete-btn').addEventListener('click', function () {
+    shoppingList.removeChild(listItem);
+    totalPrice -= totalItemPrice;
+    totalPriceElement.textContent = totalPrice.toFixed(2);
   });
 });
