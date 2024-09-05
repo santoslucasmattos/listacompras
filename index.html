@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Compras</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Lista de Compras</h1>
+    <form id="shopping-form">
+      <input type="text" id="item-input" placeholder="Adicionar item..." required>
+      <input type="number" id="price-input" placeholder="Preço (R$)" step="0.01" min="0" required>
+      <button type="submit">Adicionar</button>
+    </form>
+    <ul id="shopping-list"></ul>
+    <div class="total-container">
+      <h2>Total: R$ <span id="total-price">0.00</span></h2>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
