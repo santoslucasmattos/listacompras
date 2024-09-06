@@ -36,9 +36,11 @@ input {
   border-radius: 4px;
 }
 
+/* Estilos gerais */
 button {
+  width: 100%; /* Ambos os botões agora têm o mesmo tamanho */
   padding: 10px;
-  background-color: #28a745;
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
@@ -46,7 +48,7 @@ button {
 }
 
 button:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
 
 ul {
@@ -76,36 +78,25 @@ footer {
   font-weight: bold;
 }
 
-/* Estilo para a área do scanner */
+/* Estilo para a área do scanner (câmera) */
 #interactive {
   width: 100%;
-  height: 300px;
-  margin-top: 20px; /* Adiciona espaço entre o scanner e os elementos acima */
+  max-width: 400px; /* Limita a largura máxima para o scanner */
+  height: 300px; /* Altura reduzida da câmera */
+  margin-top: 20px;
   border: 2px solid #ccc;
   display: none; /* Inicialmente oculto */
-}
-
-button#start-scan {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button#start-scan:hover {
-  background-color: #0056b3;
 }
 
 /* Responsividade para dispositivos móveis */
 @media (max-width: 768px) {
   #interactive {
-    height: 200px; /* Reduz a altura da câmera em telas menores */
+    height: 200px; /* Reduz a altura da câmera em dispositivos móveis */
+    max-width: 100%; /* Mantém a largura da câmera dentro da tela do dispositivo */
   }
 
-  .total-container {
-    margin-bottom: 20px;
+  button {
+    width: 100%; /* Garante que os botões ocupem toda a largura disponível no celular */
+    padding: 12px; /* Um pouco mais de padding para tornar o botão mais confortável */
   }
 }
