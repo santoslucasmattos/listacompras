@@ -76,10 +76,11 @@ footer {
   font-weight: bold;
 }
 
+/* Estilo para a área do scanner */
 #interactive {
   width: 100%;
   height: 300px;
-  margin-top: 20px;
+  margin-top: 20px; /* Adiciona espaço entre o scanner e os elementos acima */
   border: 2px solid #ccc;
   display: none; /* Inicialmente oculto */
 }
@@ -96,4 +97,15 @@ button#start-scan {
 
 button#start-scan:hover {
   background-color: #0056b3;
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+  #interactive {
+    height: 200px; /* Reduz a altura da câmera em telas menores */
+  }
+
+  .total-container {
+    margin-bottom: 20px;
+  }
 }
