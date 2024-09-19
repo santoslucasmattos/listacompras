@@ -1,89 +1,54 @@
-const form = document.getElementById('product-form');
-const productInput = document.getElementById('product');
-const quantityInput = document.getElementById('quantity');
-const priceInput = document.getElementById('price');
-const shoppingList = document.getElementById('shopping-list');
-const totalPriceElement = document.getElementById('total-price');
-const startScanButton = document.getElementById('start-scan');
-const interactiveElement = document.getElementById('interactive');
+document.addEventListener("DOMContentLoaded", () => {
+  const productForm = document.getElementById("product-form");
+  const productList = document.getElementById("shopping-list");
+  const totalPriceEl = document.getElementById("total-price");
+  let totalPrice = 0;
 
-let totalPrice = 0;
+  productForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-// Função para adicionar produto manualmente
-form.addEventListener('submit', function (event) {
-  event.preventDefault();
+    const product = document.getElementById("product").value;
+    const quantity = parseFloat(document.getElementById("quantity").value);
+    const price = parseFloat(document.getElementById("price").value);
 
-  const product = productInput.value;
-  const quantity = parseInt(quantityInput.value);
-  const price = parseFloat(priceInput.value);
-  const totalItemPrice = quantity * price;
+    const itemTotal = quantity * price;
+    totalPrice += itemTotal;
 
-  // Adicionar o produto à lista
-  addProductToList(product, quantity, totalItemPrice);
+    // Criar o item na lista com a opção de editar
+    const listItem = document.createElement("li");
+    listItem.innerHTML = `
+      <span>${product} - Qtd: <span class="quantity">${quantity}</span> - Preço: R$ <span class="price">${price.toFixed(2)}</span></span>
+      <button class="edit-button">Editar</button>
+    `;
+    productList.appendChild(listItem);
 
-  // Limpar os campos do formulário
-  productInput.value = '';
-  quantityInput.value = '';
-  priceInput.value = '';
-});
+    // Atualiza o total
+    totalPriceEl.textContent = totalPrice.toFixed(2);
 
-// Função para adicionar produto à lista
-function addProductToList(product, quantity, totalItemPrice) {
-  const listItem = document.createElement('li');
-  listItem.innerHTML = `
-    ${quantity}x ${product} - R$ ${totalItemPrice.toFixed(2)}
-    <button class="delete-btn">Remover</button>
-  `;
-  shoppingList.appendChild(listItem);
+    // Limpar o formulário
+    productForm.reset();
 
-  // Atualizar o preço total
-  totalPrice += totalItemPrice;
-  totalPriceElement.textContent = totalPrice.toFixed(2);
+    // Adicionar funcionalidade de edição
+    const editButton = listItem.querySelector(".edit-button");
+    editButton.addEventListener("click", () => {
+      const quantitySpan = listItem.querySelector(".quantity");
+      const priceSpan = listItem.querySelector(".price");
 
-  // Função de remover item da lista
-  listItem.querySelector('.delete-btn').addEventListener('click', function () {
-    shoppingList.removeChild(listItem);
-    totalPrice -= totalItemPrice;
-    totalPriceElement.textContent = totalPrice.toFixed(2);
-  });
-}
+      // Criar campos de edição
+      const newQuantity = prompt("Altere a quantidade:", quantitySpan.textContent);
+      const newPrice = prompt("Altere o preço:", priceSpan.textContent);
 
-// Função para iniciar o scanner de código de barras
-startScanButton.addEventListener('click', function () {
-  interactiveElement.style.display = 'block'; // Mostrar a área de vídeo
+      if (newQuantity !== null && newPrice !== null) {
+        // Atualiza os valores no item
+        const oldItemTotal = parseFloat(quantitySpan.textContent) * parseFloat(priceSpan.textContent);
+        quantitySpan.textContent = newQuantity;
+        priceSpan.textContent = parseFloat(newPrice).toFixed(2);
 
-  Quagga.init({
-    inputStream: {
-      name: "Live",
-      type: "LiveStream",
-      target: document.querySelector('#interactive')
-    },
-    decoder: {
-      readers: ["ean_reader"] // Leitor de códigos de barras padrão EAN
-    }
-  }, function (err) {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    Quagga.start();
-  });
-
-  // Função para capturar o código de barras identificado
-  Quagga.onDetected(function (result) {
-    const code = result.codeResult.code;
-    alert("Código de barras identificado: " + code);
-    
-    // Aqui você pode adicionar uma busca para identificar o produto e o preço com base no código de barras.
-    // Para este exemplo, vou adicionar um produto genérico usando o código.
-    const produtoIdentificado = `Produto ${code}`;
-    const quantidade = 1;
-    const preco = 10.00; // Você poderia fazer uma busca em uma API para encontrar o preço real do produto
-
-    addProductToList(produtoIdentificado, quantidade, preco);
-
-    // Parar o scanner após a leitura do código
-    Quagga.stop();
-    interactiveElement.style.display = 'none'; // Esconder a área de vídeo após a leitura
+        // Atualiza o total geral
+        const newItemTotal = parseFloat(newQuantity) * parseFloat(newPrice);
+        totalPrice = totalPrice - oldItemTotal + newItemTotal;
+        totalPriceEl.textContent = totalPrice.toFixed(2);
+      }
+    });
   });
 });

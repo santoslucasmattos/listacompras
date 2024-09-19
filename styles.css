@@ -1,44 +1,5 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  padding: 20px;
-}
-
-.container {
-  max-width: 500px;
-  margin: 0 auto;
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-/* Estilos gerais */
+/* Estilo geral */
 button {
-  width: 100%; /* Ambos os botões agora têm o mesmo tamanho */
   padding: 10px;
   background-color: #007bff;
   color: white;
@@ -51,56 +12,27 @@ button:hover {
   background-color: #0056b3;
 }
 
-ul {
-  list-style-type: none;
-  margin-top: 20px;
-}
-
-li {
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #ddd;
+/* Estilo da lista de compras */
+#shopping-list li {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 
-.total-container {
-  margin-top: 20px;
-  text-align: center;
+.edit-button {
+  margin-left: 10px;
+  background-color: #28a745;
 }
 
-footer {
-  margin-top: 30px;
-  text-align: center;
-  font-size: 0.9rem;
-  color: #555;
-  font-weight: bold;
+.edit-button:hover {
+  background-color: #218838;
 }
 
-/* Estilo para a área do scanner */
-#interactive {
-  width: 100%;
-  max-width: 400px; /* Limita a largura máxima do scanner */
-  height: 250px; /* Altura reduzida */
-  margin-top: 20px;
-  border: 2px solid #ccc;
-  display: none; /* Inicialmente oculto */
-  position: relative; /* Para manter o scanner dentro de limites fixos */
-  overflow: hidden; /* Impede que o vídeo transborde da div */
-}
-
-/* Responsividade para dispositivos móveis */
+/* Responsividade */
 @media (max-width: 768px) {
-  #interactive {
-    height: 150px; /* Reduz ainda mais a altura da câmera em dispositivos móveis */
-    max-width: 100%; /* Ajusta a largura para caber na tela do dispositivo */
+  button {
+    width: 100%;
+    padding: 12px;
   }
-}
-
-/* Controlando o vídeo dentro da div */
-#interactive video {
-  width: 100%;
-  height: auto; /* Faz o vídeo se ajustar à largura do contêiner */
-  max-height: 100%; /* Garante que o vídeo não ultrapasse a altura da div */
 }
