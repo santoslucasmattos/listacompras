@@ -8,29 +8,44 @@
   <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script> <!-- Biblioteca QuaggaJS -->
 </head>
 <body>
-  <div class="container">
-    <h1>Lista de Compras</h1>
+  <!DOCTYPE html>
+  <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+    <!-- Fonte Bebas Neue -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Lista de Compras</h1>
   
-    <!-- Formulário manual -->
-    <form id="product-form">
-      <input type="text" id="product" placeholder="Nome do produto" required>
-      <input type="number" id="quantity" placeholder="Quantidade" min="1" required>
-      <input type="number" id="price" placeholder="Preço do produto" min="0.01" step="0.01" required>
-      <button type="submit">Adicionar Produto</button>
-    </form>
+      <!-- Formulário manual -->
+      <form id="product-form">
+        <input type="text" id="product" placeholder="Nome do produto" required>
+        <input type="number" id="quantity" placeholder="Quantidade" min="1" required>
+        <input type="number" id="price" placeholder="Preço do produto" min="0.01" step="0.01" required>
+        <button type="submit">Adicionar Produto</button>
+      </form>
   
-    <!-- Lista de compras -->
-    <ul id="shopping-list"></ul>
+      <!-- Lista de compras -->
+      <ul id="shopping-list"></ul>
   
-    <!-- Total da compra -->
-    <div class="total-container">
-      <h2>Total: R$ <span id="total-price">0.00</span></h2>
+      <!-- Total da compra -->
+      <div class="total-container">
+        <h2>Total: R$ <span id="total-price">0.00</span></h2>
+      </div>
     </div>
-  </div>
   
-  <footer>
-    <p>Desenvolvido por LmDev</p>
-  </footer>
+    <footer>
+      <p>Desenvolvido por LmDev</p>
+    </footer>
+  </body>
+  </html>
+  
   
   
   <script src="app.js"></script>
