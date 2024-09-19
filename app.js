@@ -14,11 +14,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const itemTotal = quantity * price;
     totalPrice += itemTotal;
 
-    // Criar o item na lista com a opção de editar
+    // Criar o item na lista com a opção de editar e excluir
     const listItem = document.createElement("li");
     listItem.innerHTML = `
       <span>${product} - Qtd: <span class="quantity">${quantity}</span> - Preço: R$ <span class="price">${price.toFixed(2)}</span></span>
-      <button class="edit-button">Editar</button>
+      <div class="action-buttons">
+        <button class="edit-button"><i class="fas fa-pen"></i></button>
+        <button class="delete-button"><i class="fas fa-trash"></i></button>
+      </div>
     `;
     productList.appendChild(listItem);
 
@@ -30,6 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Adicionar funcionalidade de edição
     const editButton = listItem.querySelector(".edit-button");
+    const deleteButton = listItem.querySelector(".delete-button");
+
     editButton.addEventListener("click", () => {
       const quantitySpan = listItem.querySelector(".quantity");
       const priceSpan = listItem.querySelector(".price");
@@ -49,6 +54,18 @@ document.addEventListener("DOMContentLoaded", () => {
         totalPrice = totalPrice - oldItemTotal + newItemTotal;
         totalPriceEl.textContent = totalPrice.toFixed(2);
       }
+    });
+
+    // Adicionar funcionalidade de excluir
+    deleteButton.addEventListener("click", () => {
+      const itemTotal = parseFloat(listItem.querySelector(".quantity").textContent) * parseFloat(listItem.querySelector(".price").textContent);
+
+      // Atualiza o total geral
+      totalPrice -= itemTotal;
+      totalPriceEl.textContent = totalPrice.toFixed(2);
+
+      // Remove o item da lista
+      productList.removeChild(listItem);
     });
   });
 });
