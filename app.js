@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   productForm.addEventListener("submit", (e) => {
     e.preventDefault();
-
+    e.stopImmediatePropagation();
     const product = document.getElementById("product").value;
     const quantity = parseFloat(document.getElementById("quantity").value);
     const price = parseFloat(document.getElementById("price").value);
