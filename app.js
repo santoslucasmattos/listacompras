@@ -15,8 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Atualiza a lista de produtos na tela
     products.forEach((product, index) => {
       const listItem = document.createElement("li");
+      listItem.classList.add('list-item'); // Adicionando classe para estilização
       listItem.innerHTML = `
-        <span>${product.name} - Qtd: <span class="quantity">${product.quantity}</span> - Preço: R$ <span class="price">${product.price.toFixed(2)}</span></span>
+        <span class="product-info">${product.name} - Qtd: <span class="quantity">${product.quantity}</span> - Preço: R$ <span class="price">${product.price.toFixed(2)}</span></span>
         <div class="action-buttons">
           <button class="edit-button" data-index="${index}"><i class="fas fa-pen"></i></button>
           <button class="delete-button" data-index="${index}"><i class="fas fa-trash"></i></button>
